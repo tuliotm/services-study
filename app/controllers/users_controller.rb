@@ -5,7 +5,15 @@ class UsersController < ApplicationController
   def index
     # search_params = params[:name].blank? ? {} : "lower(name) LIKE '%#{params[:name].downcase}%'"
     # @users = User.search(search_params)
-    @users = Users::Search.call(term: params[:name])
+    result = Users::Search.call(term: params[:name])
+
+    if result.success?
+      @users = result.users
+    else
+      @users = []
+      flash[:alert] = result.message
+    end
+
   end
 
   # GET /users/1 or /users/1.json
