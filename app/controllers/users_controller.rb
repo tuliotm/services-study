@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def index
     # search_params = params[:name].blank? ? {} : "lower(name) LIKE '%#{params[:name].downcase}%'"
     # @users = User.search(search_params)
-    result = Users::Search.call(term: params[:name])
+    result = Users::Organizers::Search.call(term: params[:name], user: "Jackson Pires")
 
     if result.success?
       @users = result.users
