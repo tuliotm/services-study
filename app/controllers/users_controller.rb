@@ -3,8 +3,9 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    search_params = params[:name].blank? ? {} : "lower(name) LIKE '%#{params[:name].downcase}%'"
-    @users = User.where(search_params)
+    # search_params = params[:name].blank? ? {} : "lower(name) LIKE '%#{params[:name].downcase}%'"
+    # @users = User.search(search_params)
+    @users = Users::Search.call(term: params[:name])
   end
 
   # GET /users/1 or /users/1.json
